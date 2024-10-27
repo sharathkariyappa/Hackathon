@@ -1,5 +1,5 @@
 import './App.css';
-import {Navbar} from "./components/ComponentIndex";
+import {Navbar, Login, Signup} from "./components/ComponentIndex";
 
 function App() {
   return (
