@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { FaUser, FaLock } from 'react-icons/fa';
 
 const Login = () => {
 
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -20,6 +22,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Form submitted', formData);
+    navigate('/Dashboard/Dashboard');
     // Add your signup logic here
   };
   return (
@@ -29,14 +32,26 @@ const Login = () => {
         
         <InputContainer>
           <FaUser className="icon" />
-          <Input type="text" placeholder="Email"  value={formData.username}
-            onChange={handleChange} required/>
+          <Input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
         </InputContainer>
         
         <InputContainer>
           <FaLock className="icon" />
-          <Input type="password" placeholder="Password"  value={formData.username}
-            onChange={handleChange} required/>
+          <Input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
         </InputContainer>
         
         <Button type="submit">Login</Button>
