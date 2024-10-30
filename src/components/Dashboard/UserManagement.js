@@ -4,7 +4,8 @@ import axios from 'axios';
 import styled from 'styled-components';
 
 const UserManagement = () => {
-  const [users, setUsers] = useState([]);
+  const [activeUserCount, setActiveUserCount] = useState(0);
+  const [newSignupCount, setNewSignupCount] = useState(0);
   
   useEffect(() => {
     fetchUsers();
@@ -13,7 +14,14 @@ const UserManagement = () => {
   const fetchUsers = async () => {
     try {
       const response = await axios.get('https://jsonplaceholder.typicode.com/users');
-      setUsers(response.data);
+      const users = response.data;
+
+      // Assuming IDs less than 5 are "Active Users" and others are "New Signups"
+      const activeUsers = users.filter(user => user.id < 5);
+      const newSignups = users.filter(user => user.id >= 5);
+
+      setActiveUserCount(activeUsers.length);
+      setNewSignupCount(newSignups.length);
     } catch (error) {
       console.error("Error fetching users:", error);
     }
@@ -21,14 +29,17 @@ const UserManagement = () => {
 
   return (
     <UserContainer>
-      <h2>User Management</h2>
-      <ul>
-        {users.map(user => (
-          <li key={user.id}>
-            {user.name} - {user.email}
-          </li>
-        ))}
-      </ul>
+      <h2>Admin Dashboard</h2>
+      <CountSection>
+        <CountBox>
+          <h3>Active Users</h3>
+          <p>{activeUserCount}</p>
+        </CountBox>
+        <CountBox>
+          <h3>New Signups</h3>
+          <p>{newSignupCount}</p>
+        </CountBox>
+      </CountSection>
     </UserContainer>
   );
 };
@@ -40,4 +51,31 @@ const UserContainer = styled.div`
   background: #ffffff;
   padding: 1rem;
   border-radius: 8px;
+  text-align: center;
+`;
+
+const CountSection = styled.div`
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1.5rem;
+`;
+
+const CountBox = styled.div`
+  padding: 1rem;
+  background: #f7f7f7;
+  border-radius: 8px;
+  width: 150px;
+  text-align: center;
+
+  h3 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #007acc;
+  }
 `;

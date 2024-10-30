@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { FaUserAlt, FaEnvelope, FaLock } from 'react-icons/fa';
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -20,7 +21,7 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Form submitted', formData);
-    // Add your signup logic here
+    navigate('/Auth/Login/Login')
   };
 
   return (
@@ -64,7 +65,7 @@ const Signup = () => {
           />
         </InputContainer>
 
-        <Button type="submit">Create Account</Button>
+        <Button type="submit" onClick={handleSubmit}>Create Account</Button>
         <FooterText>Already have an account? <Link to="/Auth/Login/Login">Login</Link></FooterText>
       </Form>
     </SignupContainer>

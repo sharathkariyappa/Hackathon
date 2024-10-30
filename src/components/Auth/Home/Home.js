@@ -13,7 +13,6 @@ const Home = () => {
         </Description>
         
         <ButtonContainer>
-          {/* <StyledLink to="/dashboard">Go to Dashboard</StyledLink> */}
           <StyledLink to="/Auth/Login/Login" secondary>Login</StyledLink>
           <StyledLink to="/Auth/Signup/Signup" secondary>Sign Up</StyledLink>
         </ButtonContainer>
